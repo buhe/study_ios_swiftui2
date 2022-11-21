@@ -24,6 +24,8 @@ struct ContentView: View {
                 ForEach(viewModel.model.emojis) {
                     e in Text(e.text).font(.system(size: size(for: e))).position(position(for: e, in: g))
                 }
+            }.onDrop(of: [.plainText], isTargeted: nil){
+                    p,l in return false
             }
         }
     }
@@ -41,8 +43,11 @@ struct ContentView: View {
         ScrollView(.horizontal) {
             HStack {
                 ForEach(test.map { (String($0)) }, id: \.self) {
-                    e in Text(e)
+                    e in Text(e).onDrag {
+                        NSItemProvider(object: e as NSString)
+                    }
                 }
+                
             }
             
         }.font(.system(size: 40))

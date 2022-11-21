@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+
 extension Collection where Element: Identifiable {
     func index(matching element: Element) -> Self.Index? {
         self.firstIndex(where: {$0.id == element.id})
