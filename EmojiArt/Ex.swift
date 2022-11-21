@@ -11,3 +11,11 @@ extension Collection where Element: Identifiable {
         self.firstIndex(where: {$0.id == element.id})
     }
 }
+
+extension RangeReplaceableCollection where Element: Identifiable {
+    mutating func remove(_ e: Element) {
+        if let i = index(matching: e) {
+            remove(at: i)
+        }
+    }
+}
