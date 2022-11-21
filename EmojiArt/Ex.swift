@@ -19,3 +19,9 @@ extension RangeReplaceableCollection where Element: Identifiable {
         }
     }
 }
+
+extension CGRect {
+    var center: CGPoint {
+        CGPoint(x: self.midX, y: self.midY)
+    }
+}

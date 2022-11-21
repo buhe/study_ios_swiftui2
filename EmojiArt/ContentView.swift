@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var viewModel: ViewModel
     var body: some View {
         VStack(spacing: 0) {
             mainBody
@@ -17,7 +18,23 @@ struct ContentView: View {
     }
     
     var mainBody: some View {
-        Color.yellow
+        GeometryReader{
+            g in ZStack {
+                Color.yellow
+                ForEach(viewModel.model.emojis) {
+                    e in Text(e.text).font(.system(size: size(for: e))).position(position(for: e, in: g))
+                }
+            }
+        }
+    }
+    
+    func size(for e: Model.Emoji) -> CGFloat {
+        CGFloat(e.size)
+    }
+    
+    func position(for e: Model.Emoji, in g: GeometryProxy) -> CGPoint {
+        let c = g.frame(in: .local).center
+        return CGPoint(x: c.x + CGFloat(e.x), y: c.y + CGFloat(e.y))
     }
     
     var palette: some View {
@@ -28,7 +45,7 @@ struct ContentView: View {
                 }
             }
             
-        }
+        }.font(.system(size: 40))
     }
     
     let test = "🥰🥹😆😄😀😜🥹😇😘😉"
@@ -36,6 +53,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        let vm = ViewModel()
+        ContentView(viewModel: vm)
     }
 }
