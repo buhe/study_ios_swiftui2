@@ -9,14 +9,29 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        VStack(spacing: 0) {
+            mainBody
+            palette
         }
-        .padding()
+        
     }
+    
+    var mainBody: some View {
+        Color.yellow
+    }
+    
+    var palette: some View {
+        ScrollView(.horizontal) {
+            HStack {
+                ForEach(test.map { (String($0)) }, id: \.self) {
+                    e in Text(e)
+                }
+            }
+            
+        }
+    }
+    
+    let test = "🥰🥹😆😄😀😜🥹😇😘😉"
 }
 
 struct ContentView_Previews: PreviewProvider {
