@@ -24,14 +24,25 @@ struct ContentView: View {
                 ForEach(viewModel.model.emojis) {
                     e in Text(e.text).font(.system(size: size(for: e))).position(position(for: e, in: g))
                 }
-            }.onDrop(of: [.plainText], isTargeted: nil){
-                    p,l in return false
+            }.onDrop(of: [.plainText], isTargeted: nil) {
+                p,l in return p.loadObjects(ofType: String.self) {
+                    t in self.viewModel.model.add(t, at: convert(l, in: g), 40)
+                }
             }
         }
     }
     
     func size(for e: Model.Emoji) -> CGFloat {
         CGFloat(e.size)
+    }
+    
+    func convert(_ location: CGPoint, in g: GeometryProxy) -> (x: Int, y: Int) {
+        let center = g.frame(in: .local).center
+        let location = CGPoint(
+            x: location.x - center.x,
+            y: location.y - center.y
+        )
+        return (Int(location.x), Int(location.y))
     }
     
     func position(for e: Model.Emoji, in g: GeometryProxy) -> CGPoint {
