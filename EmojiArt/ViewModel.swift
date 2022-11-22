@@ -28,9 +28,9 @@ class ViewModel: ObservableObject {
         case .url(let url):
             DispatchQueue.global(qos: .userInitiated).async {
                 let image = try? Data(contentsOf: url)
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak self] in
                     if image != nil {
-                        self.backgroundImage = UIImage(data: image!)
+                        self?.backgroundImage = UIImage(data: image!)
                     }
                 }
             }
