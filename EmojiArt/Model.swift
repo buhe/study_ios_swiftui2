@@ -11,7 +11,7 @@ struct Model {
     var background: Background = .blank
     var emojis = [Emoji]()
     
-    enum Background {
+    enum Background: Equatable {
         case blank
         case url(URL)
         case imageData(Data)

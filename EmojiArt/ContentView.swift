@@ -20,16 +20,40 @@ struct ContentView: View {
     var mainBody: some View {
         GeometryReader{
             g in ZStack {
-                Color.yellow
+                Color.white.overlay {
+                    if let bg = self.viewModel.backgroundImage {
+                        Image(uiImage: bg)
+                            .position(convertFromEmojiCoordinates((0, 0), in: g))
+                    }
+                }
                 ForEach(viewModel.model.emojis) {
                     e in Text(e.text).font(.system(size: size(for: e))).position(position(for: e, in: g))
                 }
-            }.onDrop(of: [.plainText], isTargeted: nil) {
-                p,l in return p.loadObjects(ofType: String.self) {
-                    t in self.viewModel.model.add(t, at: convert(l, in: g), 40)
-                }
+            }.onDrop(of: [.plainText, .url], isTargeted: nil) {
+                p,l in drop(p, l, g)
             }
         }
+    }
+    
+    func drop(_ p: [NSItemProvider], _ l: CGPoint, _ g: GeometryProxy) ->Bool {
+        var found = p.loadObjects(ofType: URL.self) {
+            url in viewModel.model.background = .url(url.imageURL)
+        }
+        if !found {
+            found = p.loadObjects(ofType: String.self) {
+               text in self.viewModel.model.add(text, at: convert(l, in: g), 40)
+           }
+        }
+
+        return found
+    }
+    
+    private func convertFromEmojiCoordinates(_ location: (x: Int, y: Int), in geometry: GeometryProxy) -> CGPoint {
+        let center = geometry.frame(in: .local).center
+        return CGPoint(
+            x: center.x + CGFloat(location.x),
+            y: center.y + CGFloat(location.y)
+        )
     }
     
     func size(for e: Model.Emoji) -> CGFloat {
@@ -46,8 +70,7 @@ struct ContentView: View {
     }
     
     func position(for e: Model.Emoji, in g: GeometryProxy) -> CGPoint {
-        let c = g.frame(in: .local).center
-        return CGPoint(x: c.x + CGFloat(e.x), y: c.y + CGFloat(e.y))
+        convertFromEmojiCoordinates((e.x, e.y), in: g)
     }
     
     var palette: some View {

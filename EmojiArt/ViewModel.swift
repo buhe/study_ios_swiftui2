@@ -8,12 +8,34 @@
 import SwiftUI
 
 class ViewModel: ObservableObject {
-    @Published var model: Model
+    @Published var model: Model {
+        didSet {
+            if model.background != oldValue.background {
+                fetch()
+            }
+        }
+    }
+    @Published var backgroundImage: UIImage?
     
     init() {
         model = Model()
         model.add("🥰", at: (100,200), 50)
         model.add("🥹", at: (-100,-200), 100)
+    }
+    
+    func fetch() {
+        switch model.background {
+        case .url(let url):
+            DispatchQueue.global(qos: .userInitiated).async {
+                let image = try? Data(contentsOf: url)
+                DispatchQueue.main.async {
+                    if image != nil {
+                        self.backgroundImage = UIImage(data: image!)
+                    }
+                }
+            }
+        default: break
+        }
     }
     
     func move(_ e: Model.Emoji,to offset: CGSize) {
