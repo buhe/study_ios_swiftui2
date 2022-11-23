@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel: ViewModel
+    @State var zoomScale: CGFloat = 1
     var body: some View {
         VStack(spacing: 0) {
             mainBody
@@ -24,10 +25,14 @@ struct ContentView: View {
                     if let bg = self.viewModel.backgroundImage {
                         Image(uiImage: bg)
                             .position(convertFromEmojiCoordinates((0, 0), in: g))
+                            .scaleEffect(zoomScale)
                     }
                 }
+                    .gesture(TapGesture(count: 1).onEnded {
+                        zoomToFit(viewModel.backgroundImage, in: g.size)
+                    })
                 ForEach(viewModel.model.emojis) {
-                    e in Text(e.text).font(.system(size: size(for: e))).position(position(for: e, in: g))
+                    e in Text(e.text).font(.system(size: size(for: e))).scaleEffect(zoomScale).position(position(for: e, in: g))
                 }
             }.onDrop(of: [.plainText, .url], isTargeted: nil) {
                 p,l in drop(p, l, g)
@@ -41,19 +46,31 @@ struct ContentView: View {
         }
         if !found {
             found = p.loadObjects(ofType: String.self) {
-               text in self.viewModel.model.add(text, at: convert(l, in: g), 40)
+               text in self.viewModel.model.add(text, at: convert(l, in: g), Int(CGFloat(40) / zoomScale))
            }
         }
 
         return found
     }
     
+    func zoomToFit(_ image: UIImage?, in size: CGSize) {
+        if let image = image {
+            let hZoom = size.width / image.size.width
+            let vZoom = size.height / image.size.height
+            
+            zoomScale = min(hZoom, vZoom)
+            print("zoom is \(zoomScale)")
+        }
+    }
+    
     private func convertFromEmojiCoordinates(_ location: (x: Int, y: Int), in geometry: GeometryProxy) -> CGPoint {
         let center = geometry.frame(in: .local).center
-        return CGPoint(
-            x: center.x + CGFloat(location.x),
-            y: center.y + CGFloat(location.y)
+        let ret = CGPoint(
+            x: center.x + CGFloat(location.x) * zoomScale,
+            y: center.y + CGFloat(location.y) * zoomScale
         )
+        print("from is \(ret)")
+        return ret
     }
     
     func size(for e: Model.Emoji) -> CGFloat {
@@ -62,11 +79,14 @@ struct ContentView: View {
     
     func convert(_ location: CGPoint, in g: GeometryProxy) -> (x: Int, y: Int) {
         let center = g.frame(in: .local).center
+        print("au is \(location)")
         let location = CGPoint(
-            x: location.x - center.x,
-            y: location.y - center.y
+            x: (location.x - center.x) / zoomScale,
+            y: (location.y - center.y) / zoomScale
         )
-        return (Int(location.x), Int(location.y))
+        let ret = (Int(location.x), Int(location.y))
+        print("to is \(ret)")
+        return ret
     }
     
     func position(for e: Model.Emoji, in g: GeometryProxy) -> CGPoint {

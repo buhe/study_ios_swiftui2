@@ -19,8 +19,8 @@ class ViewModel: ObservableObject {
     
     init() {
         model = Model()
-        model.add("🥰", at: (100,200), 50)
-        model.add("🥹", at: (-100,-200), 100)
+//        model.add("🥰", at: (100,200), 50)
+//        model.add("🥹", at: (-100,-200), 100)
     }
     
     func fetch() {
