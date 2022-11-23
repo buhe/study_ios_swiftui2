@@ -24,12 +24,15 @@ struct ContentView: View {
                 Color.white.overlay {
                     if let bg = self.viewModel.backgroundImage {
                         Image(uiImage: bg)
-                            .position(convertFromEmojiCoordinates((0, 0), in: g))
                             .scaleEffect(zoomScale)
+                            .position(convertFromEmojiCoordinates((0, 0), in: g))
+                            
                     }
                 }
                     .gesture(TapGesture(count: 1).onEnded {
-                        zoomToFit(viewModel.backgroundImage, in: g.size)
+                        withAnimation {
+                            zoomToFit(viewModel.backgroundImage, in: g.size)
+                        }
                     })
                 ForEach(viewModel.model.emojis) {
                     e in Text(e.text).font(.system(size: size(for: e))).scaleEffect(zoomScale).position(position(for: e, in: g))
