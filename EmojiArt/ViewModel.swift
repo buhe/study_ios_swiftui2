@@ -10,6 +10,7 @@ import SwiftUI
 class ViewModel: ObservableObject {
     @Published var model: Model {
         didSet {
+            autesave()
             if model.background != oldValue.background {
                 fetch()
             }
@@ -18,9 +19,32 @@ class ViewModel: ObservableObject {
     @Published var backgroundImage: UIImage?
     
     init() {
-        model = Model()
+        var url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        url = url?.appendingPathComponent("autosave.emoji")
+        if let url = url, let model = try? Model(from: url) {
+            self.model = model
+            fetch()
+        } else {
+            self.model = Model()
+        }
+    
 //        model.add("🥰", at: (100,200), 50)
 //        model.add("🥹", at: (-100,-200), 100)
+    }
+    
+    func autesave() {
+        var url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        url = url?.appendingPathComponent("autosave.emoji")
+        if let url = url {
+            do {
+                let json = try model.json()
+                try json.write(to: url)
+                
+                print("save \(String(data: json, encoding: .utf8) ?? "nil")")
+            }catch{
+                
+            }
+        }
     }
     
     func fetch() {
