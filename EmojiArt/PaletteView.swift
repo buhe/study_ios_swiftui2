@@ -19,6 +19,24 @@ struct PaletteView: View {
                     next()
                 } label: {
                     Text("Next")
+                }.contextMenu {
+                    Button {
+                        
+                    } label: {
+                        Text("New")
+                    }
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("Edit")
+                    }
+                    
+                    Button {
+                        
+                    } label: {
+                        Text("Delete")
+                    }
                 }
                 Text(current.name)
                 ForEach(current.emojis.map { (String($0)) }, id: \.self) {
