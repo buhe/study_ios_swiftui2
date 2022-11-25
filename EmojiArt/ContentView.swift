@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel: ViewModel
-    @ObservedObject var paletteViewModel: PaletteViewModel
+    var paletteViewModel: PaletteViewModel
     @State var zoomScale: CGFloat = 1
     var body: some View {
         VStack(spacing: 0) {

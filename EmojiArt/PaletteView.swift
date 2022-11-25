@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PaletteView: View {
-    var paletteViewModel: PaletteViewModel
+    @ObservedObject var paletteViewModel: PaletteViewModel
     @State var selected: Int = 0
     
     var body: some View {
@@ -21,7 +21,7 @@ struct PaletteView: View {
                     Text("Next")
                 }.contextMenu {
                     Button {
-                        
+                        self.paletteViewModel.insert(named: "New", emojis: "", at: selected)
                     } label: {
                         Text("New")
                     }
@@ -33,7 +33,7 @@ struct PaletteView: View {
                     }
                     
                     Button {
-                        
+                        self.paletteViewModel.palettes.remove(at: selected)
                     } label: {
                         Text("Delete")
                     }
