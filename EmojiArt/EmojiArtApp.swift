@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct EmojiArtApp: App {
     let vm = ViewModel()
+    let pvm = PaletteViewModel()
     var body: some Scene {
         
         WindowGroup {
