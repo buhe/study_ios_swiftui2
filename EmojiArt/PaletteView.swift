@@ -12,6 +12,7 @@ struct PaletteView: View {
     @State var selected: Int = 0
     
     var body: some View {
+        let current = paletteViewModel.palettes[selected]
         ScrollView(.horizontal) {
             HStack {
                 Button {
@@ -19,7 +20,8 @@ struct PaletteView: View {
                 } label: {
                     Text("Next")
                 }
-                ForEach(paletteViewModel.palettes[selected].emojis.map { (String($0)) }, id: \.self) {
+                Text(current.name)
+                ForEach(current.emojis.map { (String($0)) }, id: \.self) {
                     e in Text(e).onDrag {
                         NSItemProvider(object: e as NSString)
                     }
