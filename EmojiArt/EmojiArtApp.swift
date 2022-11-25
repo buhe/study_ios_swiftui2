@@ -14,7 +14,7 @@ struct EmojiArtApp: App {
     var body: some Scene {
         
         WindowGroup {
-            ContentView(viewModel: vm)
+            ContentView(viewModel: vm, paletteViewModel: pvm)
         }
     }
 }

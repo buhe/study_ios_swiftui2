@@ -8,13 +8,38 @@
 import SwiftUI
 
 struct PaletteView: View {
+    var paletteViewModel: PaletteViewModel
+    @State var selected: Int = 0
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView(.horizontal) {
+            HStack {
+                Button {
+                    next()
+                } label: {
+                    Text("Next")
+                }
+                ForEach(paletteViewModel.palettes[selected].emojis.map { (String($0)) }, id: \.self) {
+                    e in Text(e).onDrag {
+                        NSItemProvider(object: e as NSString)
+                    }
+                }
+                
+            }
+            
+        }.font(.system(size: 40))
     }
+    
+    func next() {
+        selected = (selected + 1) % paletteViewModel.palettes.count
+    }
+    
+//    let test = "🥰🥹😆😄😀😜🥹😇😘😉"
 }
+
 
 struct PaletteView_Previews: PreviewProvider {
     static var previews: some View {
-        PaletteView()
+        PaletteView(paletteViewModel: PaletteViewModel())
     }
 }

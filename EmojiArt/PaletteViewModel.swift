@@ -22,11 +22,11 @@ class PaletteViewModel: ObservableObject {
     func save() {
         let data = try? JSONEncoder().encode(palettes)
         if let data = data {
-            UserDefaults.standard.set(data, forKey: "p")
+            UserDefaults.standard.set(data, forKey: "pal")
         }
     }
     func load() {
-        if let data = UserDefaults.standard.data(forKey: "p") ,
+        if let data = UserDefaults.standard.data(forKey: "pal") ,
             let palettes = try? JSONDecoder().decode([Palette].self, from: data) {
                 self.palettes = palettes
 
@@ -38,6 +38,14 @@ class PaletteViewModel: ObservableObject {
         if palettes.isEmpty {
             print("using built0in palettes")
             insert(named: "Vehicles", emojis: "🚙🚗🚘🚕🚖🏎🚚🛻🚛🚐🚓🚔🚑🚒🚀✈️🛫🛬🛩🚁🛸🚲🏍🛶⛵️🚤🛥🛳⛴🚢🚂🚝🚅🚆🚊🚉🚇🛺🚜")
+            insert(named: "Vehicles", emojis: "🚙🚗🚘🚕🚖🏎🚚🛻🚛🚐🚓🚔🚑🚒🚀✈️🛫🛬🛩🚁🛸🚲🏍🛶⛵️🚤🛥🛳⛴🚢🚂🚝🚅🚆🚊🚉🚇🛺🚜")
+            insert(named: "Sports", emojis: "🏈⚾️🏀⚽️🎾🏐🥏🏓⛳️🥅🥌🏂⛷🎳")
+            insert(named: "Music", emojis: "🎼🎤🎹🪘🥁🎺🪗🪕🎻")
+            insert(named: "Animals", emojis: "🐥🐣🐂🐄🐎🐖🐏🐑🦙🐐🐓🐁🐀🐒🦆🦅🦉🦇🐢🐍🦎🦖🦕🐅🐆🦓🦍🦧🦣🐘🦛🦏🐪🐫🦒🦘🦬🐃🦙🐐🦌🐕🐩🦮🐈🦤🦢🦩🕊🦝🦨🦡🦫🦦🦥🐿🦔")
+            insert(named: "Animal Faces", emojis: "🐵🙈🙊🙉🐶🐱🐭🐹🐰🦊🐻🐼🐻‍❄️🐨🐯🦁🐮🐷🐸🐲")
+            insert(named: "Flora", emojis: "🌲🌴🌿☘️🍀🍁🍄🌾💐🌷🌹🥀🌺🌸🌼🌻")
+            insert(named: "Weather", emojis: "☀️🌤⛅️🌥☁️🌦🌧⛈🌩🌨❄️💨☔️💧💦🌊☂️🌫🌪")
+            insert(named: "COVID", emojis: "💉🦠😷🤧🤒")
         } else {
             print("succesfully loaded palettes from UserDefaults: \(palettes)")
         }

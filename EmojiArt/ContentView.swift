@@ -9,11 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel: ViewModel
+    @ObservedObject var paletteViewModel: PaletteViewModel
     @State var zoomScale: CGFloat = 1
     var body: some View {
         VStack(spacing: 0) {
             mainBody
-            palette
+            PaletteView(paletteViewModel: paletteViewModel)
         }
         
     }
@@ -96,26 +97,12 @@ struct ContentView: View {
         convertFromEmojiCoordinates((e.x, e.y), in: g)
     }
     
-    var palette: some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(test.map { (String($0)) }, id: \.self) {
-                    e in Text(e).onDrag {
-                        NSItemProvider(object: e as NSString)
-                    }
-                }
-                
-            }
-            
-        }.font(.system(size: 40))
-    }
-    
-    let test = "🥰🥹😆😄😀😜🥹😇😘😉"
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let vm = ViewModel()
-        ContentView(viewModel: vm)
+        let pvm = PaletteViewModel()
+        ContentView(viewModel: vm, paletteViewModel: pvm)
     }
 }

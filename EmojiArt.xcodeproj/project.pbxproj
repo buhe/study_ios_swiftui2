@@ -18,6 +18,7 @@
 		3FDA27C0292B819A00F28A4A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA27BF292B819A00F28A4A /* Model.swift */; };
 		3FDA27C2292B8C3000F28A4A /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA27C1292B8C3000F28A4A /* ViewModel.swift */; };
 		3FDA27C42930B36F00F28A4A /* PaletteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA27C32930B36F00F28A4A /* PaletteViewModel.swift */; };
+		3FDA27C62930BE3F00F28A4A /* PaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FDA27C52930BE3F00F28A4A /* PaletteView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		3FDA27BF292B819A00F28A4A /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		3FDA27C1292B8C3000F28A4A /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		3FDA27C32930B36F00F28A4A /* PaletteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteViewModel.swift; sourceTree = "<group>"; };
+		3FDA27C52930BE3F00F28A4A /* PaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				3FDA27BF292B819A00F28A4A /* Model.swift */,
 				3FDA27C1292B8C3000F28A4A /* ViewModel.swift */,
 				3FDA27C32930B36F00F28A4A /* PaletteViewModel.swift */,
+				3FDA27C52930BE3F00F28A4A /* PaletteView.swift */,
 			);
 			path = EmojiArt;
 			sourceTree = "<group>";
@@ -274,6 +277,7 @@
 				3F6B26B72925EE6800B9FA5E /* ContentView.swift in Sources */,
 				3F6B26B52925EE6800B9FA5E /* EmojiArtApp.swift in Sources */,
 				3FDA27BE292B680500F28A4A /* Ex.swift in Sources */,
+				3FDA27C62930BE3F00F28A4A /* PaletteView.swift in Sources */,
 				3FDA27C0292B819A00F28A4A /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
