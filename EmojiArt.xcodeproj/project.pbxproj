@@ -54,6 +54,7 @@
 		3FDA27C1292B8C3000F28A4A /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		3FDA27C32930B36F00F28A4A /* PaletteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteViewModel.swift; sourceTree = "<group>"; };
 		3FDA27C52930BE3F00F28A4A /* PaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteView.swift; sourceTree = "<group>"; };
+		3FDF5F24293750AF005C28D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +105,7 @@
 		3F6B26B32925EE6800B9FA5E /* EmojiArt */ = {
 			isa = PBXGroup;
 			children = (
+				3FDF5F24293750AF005C28D0 /* Info.plist */,
 				3F6B26B42925EE6800B9FA5E /* EmojiArtApp.swift */,
 				3F6B26B62925EE6800B9FA5E /* ContentView.swift */,
 				3F6B26B82925EE6A00B9FA5E /* Assets.xcassets */,
@@ -440,6 +442,7 @@
 				DEVELOPMENT_TEAM = N22PJBS26Y;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EmojiArt/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -469,6 +472,7 @@
 				DEVELOPMENT_TEAM = N22PJBS26Y;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = EmojiArt/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

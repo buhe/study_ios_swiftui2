@@ -7,6 +7,11 @@
 
 import Foundation
 import UIKit
+import UniformTypeIdentifiers
+
+extension UTType {
+    static let art = UTType(exportedAs: "dev.buhe.art")
+}
 
 extension Collection where Element: Identifiable {
     func index(matching element: Element) -> Self.Index? {
@@ -80,3 +85,23 @@ extension Array where Element == NSItemProvider {
         loadObjects(ofType: theType, firstOnly: true, using: load)
     }
 }
+
+extension RawRepresentable where Self: Codable {
+    public var rawValue: String {
+        if let json = try? JSONEncoder().encode(self), let string = String(data: json, encoding: .utf8) {
+            return string
+        } else {
+            return ""
+        }
+    }
+    public init?(rawValue: String) {
+        if let value = try? JSONDecoder().decode(Self.self, from: Data(rawValue.utf8)) {
+            self = value
+        } else {
+            return nil
+        }
+    }
+}
+
+extension CGSize: RawRepresentable { }
+extension CGFloat: RawRepresentable { }

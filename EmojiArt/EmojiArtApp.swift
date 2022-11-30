@@ -9,12 +9,11 @@ import SwiftUI
 
 @main
 struct EmojiArtApp: App {
-    let vm = ViewModel()
     let pvm = PaletteViewModel()
     var body: some Scene {
         
-        WindowGroup {
-            ContentView(viewModel: vm, paletteViewModel: pvm)
+        DocumentGroup(newDocument: { ViewModel() }) { config in
+            ContentView(viewModel: config.document, paletteViewModel: pvm)
         }
     }
 }

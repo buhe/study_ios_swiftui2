@@ -9,8 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var viewModel: ViewModel
+    @Environment(\.undoManager) var undoManager
     var paletteViewModel: PaletteViewModel
-    @State var zoomScale: CGFloat = 1
+    @SceneStorage("ContentView.zoomScale") var zoomScale: CGFloat = 1
     var body: some View {
         VStack(spacing: 0) {
             mainBody
@@ -46,11 +47,17 @@ struct ContentView: View {
     
     func drop(_ p: [NSItemProvider], _ l: CGPoint, _ g: GeometryProxy) ->Bool {
         var found = p.loadObjects(ofType: URL.self) {
-            url in viewModel.model.background = .url(url.imageURL)
+            url in
+            viewModel.undoablyPerform(operation: "Set Background", with: undoManager) {
+                viewModel.model.background = .url(url.imageURL)
+            }
         }
         if !found {
             found = p.loadObjects(ofType: String.self) {
-               text in self.viewModel.model.add(text, at: convert(l, in: g), Int(CGFloat(40) / zoomScale))
+               text in
+                viewModel.undoablyPerform(operation: "Add \(text)", with: undoManager) {
+                    self.viewModel.model.add(text, at: convert(l, in: g), Int(CGFloat(40) / zoomScale))
+                }
            }
         }
 
