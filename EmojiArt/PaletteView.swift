@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PaletteView: View {
     @ObservedObject var paletteViewModel: PaletteViewModel
-    @State var selected: Int = 0
+    @SceneStorage("PaletteView.selected") var selected: Int = 0
     
     var body: some View {
         let current = paletteViewModel.palettes[selected]
